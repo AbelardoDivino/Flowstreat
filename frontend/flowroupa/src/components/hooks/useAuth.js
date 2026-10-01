@@ -32,7 +32,8 @@ export default function useAuth() {
       const { user } = await authService.getMe();
       setUser(user);
     } catch {
-      logout();
+      // 401 quando deslogado é normal, não loga erro
+      setUser(null);
     }
   }
 

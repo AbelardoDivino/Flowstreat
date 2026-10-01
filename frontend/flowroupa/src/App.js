@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
@@ -10,10 +10,12 @@ import Checkout from './pages/Checkout';
 import MinhaConta from './pages/MinhaConta';
 import MeusPedidos from './pages/MeusPedidos';
 import RotaPrivada from './components/RotaPrivada';
+import RotaAdmin from './components/RotaAdmin';
+import AdminProdutos from './pages/admin/AdminProdutos';
+import AdminPedidos from './pages/admin/AdminPedidos';
 import useAuth from './components/hooks/useAuth';
-import CartIcon from './cart/CartIcon';
+import Header from './layout/Header';
 import CartDrawer from './cart/CartDrawer';
-import { useState } from 'react';
 
 function App() {
   const { restore } = useAuth();
@@ -22,28 +24,23 @@ function App() {
 
   return (
     <BrowserRouter>
-      <nav style={{ display: 'flex', gap: 12, padding: 12, borderBottom: '1px solid #ddd', alignItems: 'center' }}>
-        <Link to="/">Home</Link>
-        <Link to="/catalogo">Catálogo</Link>
-        <Link to="/carrinho">Carrinho</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/cadastro">Cadastro</Link>
-        <Link to="/minha-conta">Minha Conta</Link>
-        <Link to="/meus-pedidos">Meus Pedidos</Link>
-        <CartIcon onClick={() => setCartOpen(true)} />
-      </nav>
-      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/produto/:slug" element={<ProdutoDetalhe />} />
-        <Route path="/carrinho" element={<Carrinho />} />
-        <Route path="/checkout" element={<RotaPrivada><Checkout /></RotaPrivada>} />
-        <Route path="/minha-conta" element={<RotaPrivada><MinhaConta /></RotaPrivada>} />
-        <Route path="/meus-pedidos" element={<RotaPrivada><MeusPedidos /></RotaPrivada>} />
-      </Routes>
+      <div className="min-h-screen bg-base font-body text-tinta">
+        <Header onCartClick={() => setCartOpen(true)} />
+        <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
+          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/produto/:slug" element={<ProdutoDetalhe onAdd={() => setCartOpen(true)} />} />
+          <Route path="/carrinho" element={<Carrinho />} />
+          <Route path="/checkout" element={<RotaPrivada><Checkout /></RotaPrivada>} />
+          <Route path="/minha-conta" element={<RotaPrivada><MinhaConta /></RotaPrivada>} />
+          <Route path="/meus-pedidos" element={<RotaPrivada><MeusPedidos /></RotaPrivada>} />
+          <Route path="/admin/produtos" element={<RotaAdmin><AdminProdutos /></RotaAdmin>} />
+          <Route path="/admin/pedidos" element={<RotaAdmin><AdminPedidos /></RotaAdmin>} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

@@ -1,7 +1,14 @@
 const service = require('./order.service');
 
 async function create(req, res, next) {
-  try { const order = await service.createOrder(req.user.id, req.body); res.status(201).json(order); } catch (e) { next(e); }
+  try {
+    const order = await service.createOrder(req.user.id, req.body);
+    try {
+      const { sendOrderCreatedEmail } = require('../lib/mailer');
+      if (req.user.email) sendOrderCreatedEmail(req.user.email, order).catch(() => {});
+    } catch {}
+    res.status(201).json(order);
+  } catch (e) { next(e); }
 }
 async function myOrders(req, res, next) {
   try { const list = await service.getMyOrders(req.user.id); res.json(list); } catch (e) { next(e); }

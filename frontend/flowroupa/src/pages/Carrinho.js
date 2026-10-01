@@ -1,19 +1,19 @@
 import useCartStore from '../components/store/cartStore';
 import CartItem from '../cart/CartItem';
 import CartSummary from '../cart/CartSummary';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Carrinho() {
   const { items, removeItem, updateQuantity } = useCartStore();
-  if (items.length === 0) return <div style={{ padding: 20 }}><h1>Carrinho</h1><p>Vazio</p><Link to="/catalogo">Ver catálogo</Link></div>;
+  const navigate = useNavigate();
+  if (!items.length) return <div className="max-w-2xl mx-auto px-4 py-12 text-center"><h1 className="font-display text-2xl">Sua sacola está vazia</h1><p className="text-poeira mt-2">Dá uma olhada na coleção.</p><Link to="/catalogo" className="inline-block mt-4 bg-fluxo text-white px-6 py-2 rounded-[3px]">Ver coleção</Link></div>;
   return (
-    <div style={{ padding: 20, maxWidth: 600 }}>
-      <h1>Carrinho</h1>
-      {items.map((item) => (
-        <CartItem key={`${item.productId}-${item.size}-${item.color}`} item={item} onUpdate={(q) => updateQuantity(item.productId, item.size, item.color, q)} onRemove={() => removeItem(item.productId, item.size, item.color)} />
-      ))}
+    <div className="max-w-2xl mx-auto px-4 py-6">
+      <h1 className="font-display text-2xl mb-4">Sacola</h1>
+      {items.map((item) => <CartItem key={`${item.productId}-${item.size}-${item.color}`} item={item} onUpdate={(q) => updateQuantity(item.productId, item.size, item.color, q)} onRemove={() => removeItem(item.productId, item.size, item.color)} />)}
       <CartSummary />
-      <Link to="/checkout" style={{ display: 'block', marginTop: 16, padding: 12, background: '#000', color: '#fff', textAlign: 'center', textDecoration: 'none' }}>Ir para checkout</Link>
+      <button onClick={() => navigate('/checkout')} className="w-full mt-6 bg-tinta text-base py-3 rounded-[3px] font-semibold">Finalizar compra</button>
+      <Link to="/catalogo" className="block text-center mt-3 text-sm text-poeira">Continuar comprando</Link>
     </div>
   );
 }

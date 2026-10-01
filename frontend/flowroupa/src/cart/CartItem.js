@@ -1,17 +1,17 @@
 export default function CartItem({ item, onUpdate, onRemove }) {
   return (
-    <div style={{ display: 'flex', gap: 12, borderBottom: '1px solid #eee', padding: '8px 0', alignItems: 'center' }}>
-      <img src={item.image} alt={item.name} style={{ width: 60, height: 60, objectFit: 'cover' }} />
-      <div style={{ flex: 1 }}>
-        <p style={{ margin: 0, fontWeight: 'bold' }}>{item.name}</p>
-        <p style={{ margin: 0, fontSize: 12, color: '#666' }}>{item.size} / {item.color} - R$ {item.price.toFixed(2)}</p>
-        <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
-          <button onClick={() => onUpdate(item.quantity - 1)}>-</button>
-          <span>{item.quantity}</span>
-          <button onClick={() => onUpdate(item.quantity + 1)}>+</button>
+    <div className="flex gap-3 py-3 border-b border-linha">
+      <img src={item.image} alt={item.name} className="w-16 h-16 object-cover border border-linha" />
+      <div className="flex-1">
+        <p className="font-display text-sm leading-none">{item.name}</p>
+        <p className="text-xs text-poeira">{item.size} • {item.color} — R$ {item.price.toFixed(2)}</p>
+        <div className="flex gap-2 mt-2">
+          <button onClick={() => onUpdate(item.quantity - 1)} className="w-7 h-7 border border-linha rounded-[3px]">-</button>
+          <span className="w-7 h-7 grid place-items-center text-sm">{item.quantity}</span>
+          <button onClick={() => onUpdate(item.quantity + 1)} className="w-7 h-7 border border-linha rounded-[3px]">+</button>
         </div>
       </div>
-      <button onClick={onRemove} style={{ color: 'red' }}>X</button>
+      <button onClick={onRemove} className="text-poeira text-sm">Remover</button>
     </div>
   );
 }

@@ -1,3 +1,3 @@
 export default function ProductReviews() {
-  return <div style={{ marginTop: 16, color: '#666' }}>★ 4.8 (nota média - avaliações em breve)</div>;
+  return <p className="text-sm text-poeira mt-3">★ 4.8 — Algodão pesado, corte solto, costuras reforçadas.</p>;
 }

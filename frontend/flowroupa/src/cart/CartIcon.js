@@ -1,11 +1,10 @@
 import useCartStore from '../components/store/cartStore';
-
 export default function CartIcon({ onClick }) {
   const count = useCartStore((s) => s.count());
   return (
-    <button onClick={onClick} style={{ position: 'relative', padding: '6px 12px' }}>
-      🛒 Carrinho
-      {count > 0 && <span style={{ position: 'absolute', top: -6, right: -6, background: '#000', color: '#fff', borderRadius: 10, padding: '2px 6px', fontSize: 11 }}>{count}</span>}
+    <button onClick={onClick} className="relative border border-tinta px-3 py-1 rounded-[3px] text-sm font-semibold">
+      Sacola {count > 0 ? `(${count})` : ''}
+      {count > 0 && <span className="absolute -top-2 -right-2 bg-selo text-tinta text-xs w-5 h-5 grid place-items-center rounded-full font-bold">{count}</span>}
     </button>
   );
 }

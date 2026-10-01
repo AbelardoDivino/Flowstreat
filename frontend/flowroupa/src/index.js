@@ -9,11 +9,9 @@ const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || 'pendente';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <GoogleOAuthProvider clientId={googleClientId}>
-      <App />
-    </GoogleOAuthProvider>
-  </React.StrictMode>
+  <GoogleOAuthProvider clientId={googleClientId}>
+    <App />
+  </GoogleOAuthProvider>
 );
 
 reportWebVitals();
