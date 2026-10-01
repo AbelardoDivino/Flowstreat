@@ -18,6 +18,7 @@ coverage/
 .env.test.local
 .env.production.local
 backend/.env
+frontend/flowroupa/.env
 frontend/.env.local
 
 # OS
@@ -41,3 +42,10 @@ prisma/migrations/
 
 # Misc
 *.map
+
+# Imagens originais/intermediárias (site usa só pictures/profissional/*.jpg)
+*.HEIC
+*.heic
+frontend/flowroupa/public/pictures/formatado/
+frontend/flowroupa/public/pictures/optimized/
+frontend/flowroupa/build/
