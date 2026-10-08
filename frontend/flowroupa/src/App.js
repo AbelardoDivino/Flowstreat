@@ -15,11 +15,14 @@ import AdminProdutos from './pages/admin/AdminProdutos';
 import AdminPedidos from './pages/admin/AdminPedidos';
 import useAuth from './components/hooks/useAuth';
 import Header from './layout/Header';
+import Footer from './layout/Footer';
 import CartDrawer from './cart/CartDrawer';
 
 function App() {
   const { restore } = useAuth();
   const [cartOpen, setCartOpen] = useState(false);
+  // restore é estável por sessão (restaura cookie uma vez ao carregar)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { restore(); }, []);
 
   return (
@@ -40,6 +43,7 @@ function App() {
           <Route path="/admin/produtos" element={<RotaAdmin><AdminProdutos /></RotaAdmin>} />
           <Route path="/admin/pedidos" element={<RotaAdmin><AdminPedidos /></RotaAdmin>} />
         </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
   );

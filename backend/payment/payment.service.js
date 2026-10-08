@@ -5,11 +5,17 @@ const prisma = require('../lib/prisma');
 async function createPixPayment(order, payerEmail) {
   if (!client) throw Object.assign(new Error('Mercado Pago não configurado'), { status: 500 });
   const payment = new Payment(client);
+  const [firstName, ...rest] = (payerEmail || 'Test User').split('@')[0].split(/[._-]+/);
   const body = {
     transaction_amount: Number(order.total),
     description: `FlowStreat Pedido ${order.id}`,
     payment_method_id: 'pix',
-    payer: { email: payerEmail || 'test@example.com' },
+    payer: {
+      email: payerEmail || 'test@example.com',
+      first_name: firstName || 'Test',
+      last_name: rest.join(' ') || 'User',
+      identification: { type: 'CPF', number: '12345678909' },
+    },
     external_reference: order.id,
   };
   const result = await payment.create({ body });
@@ -54,7 +60,7 @@ async function createBoletoPayment(order, payerEmail) {
       email: payerEmail || 'test@example.com',
       first_name: 'FlowStreat',
       last_name: 'Cliente',
-      identification: { type: 'CPF', number: '19119111000' },
+      identification: { type: 'CPF', number: '12345678909' },
       address: { zip_code: '06233200', street_name: 'Av. das Nações Unidas', street_number: '3003', neighborhood: 'Bonfim', city: 'Osasco', federal_unit: 'SP' },
     },
     external_reference: order.id,

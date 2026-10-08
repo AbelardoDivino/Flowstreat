@@ -37,7 +37,12 @@ async function google(req, res, next) {
 }
 
 async function logout(req, res) {
-  res.clearCookie('token');
+  const isProd = process.env.NODE_ENV === 'production';
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax',
+  });
   res.json({ message: 'Logout ok' });
 }
 

@@ -22,6 +22,10 @@ const envSchema = z.object({
   SMTP_PORT: z.coerce.number().default(587),
   SMTP_USER: z.string().default(''),
   SMTP_PASS: z.string().default(''),
+  ADMIN_EMAIL: z.string().default(''),
+  OWNER_WHATSAPP: z.string().default(''),
+  WHATSAPP_TOKEN: z.string().default(''),
+  WHATSAPP_PHONE_ID: z.string().default(''),
   FRONTEND_URL: z.string().default('http://localhost:3000'),
 });
 

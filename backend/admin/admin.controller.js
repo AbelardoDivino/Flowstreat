@@ -14,7 +14,12 @@ async function listOrders(req, res, next) {
     const filtered = status
       ? orders.filter((o) => o.statusHistory?.[o.statusHistory.length - 1]?.status === status)
       : orders;
-    res.json({ orders: filtered, page: Number(page), limit: Number(limit) });
+    // anexa quem comprou (nome/email) em cada pedido
+    const userIds = [...new Set(filtered.map((o) => o.userId))];
+    const users = await prisma.user.findMany({ where: { id: { in: userIds } }, select: { id: true, name: true, email: true } });
+    const byId = Object.fromEntries(users.map((u) => [u.id, u]));
+    const withCustomer = filtered.map((o) => ({ ...o, customer: byId[o.userId] || null }));
+    res.json({ orders: withCustomer, page: Number(page), limit: Number(limit) });
   } catch (e) { next(e); }
 }
 

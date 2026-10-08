@@ -34,11 +34,20 @@ export default function Checkout() {
     } catch (e) { setMsg(e.message); }
   }
 
+  const step = !orderId ? (addressId ? 2 : 1) : 3;
+  const steps = ['Endereço', 'Revisão', 'Pagamento'];
+
   if (!orderId) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-6">
         <h1 className="font-display text-2xl">Finalizar compra</h1>
-        <p className="text-sm text-poeira mb-4">3 passos: endereço → revisão → pagamento</p>
+        <ol className="flex gap-2 mt-3 mb-6" aria-label="Etapas da compra">
+          {steps.map((s, i) => (
+            <li key={s} className={`flex-1 text-center text-xs py-2 border rounded-[3px] ${i + 1 <= step ? 'bg-tinta text-base border-tinta font-semibold' : 'border-linha text-poeira'}`}>
+              {i + 1}. {s}
+            </li>
+          ))}
+        </ol>
         <AddressSelector selected={addressId} onSelect={setAddressId} />
         <button onClick={() => setShowForm(!showForm)} className="text-sm text-fluxo mt-2">{showForm ? 'Fechar' : '+ Novo endereço'}</button>
         {showForm && <div className="mt-3"><AddressForm onCreated={(a) => { setAddressId(a.id); setShowForm(false); }} /></div>}

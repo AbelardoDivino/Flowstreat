@@ -11,8 +11,8 @@ export default function ProductCard({ product }) {
       </div>
       <div className="border-t border-linha pt-3 pb-1">
         <h3 className="font-display text-lg leading-none">{product.name}</h3>
-        <p className="font-body font-semibold text-sm mt-1">R$ {product.price?.toFixed(2)} <span className="font-normal text-poeira">em até 3x sem juros</span></p>
-        <div className="flex gap-1.5 mt-2">
+        <p className="font-body text-sm mt-2"><span className="bg-selo text-tinta font-bold px-1.5 py-0.5 rounded-[2px]">R$ {product.price?.toFixed(2)}</span> <span className="font-normal text-poeira">em até 3x sem juros</span></p>
+        <div className="flex gap-1.5 mt-2" aria-hidden="true">
           {colors.map((c) => (
             <span key={c} title={c} className="w-3 h-3 rounded-full border border-linha" style={{ background: colorMap[c] || '#C9C6BC' }} />
           ))}

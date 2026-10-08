@@ -14,16 +14,16 @@ export default function BoletoPayment({ orderId }) {
   }
 
   return (
-    <div style={{ border: '1px solid #ddd', padding: 12 }}>
-      <h4>Boleto</h4>
-      {!data ? <button onClick={handleGenerate}>Gerar Boleto</button> : (
-        <div>
-          {data.barcode && <p style={{ wordBreak: 'break-all', background: '#eee', padding: 8 }}>{data.barcode} <button onClick={() => navigator.clipboard.writeText(data.barcode)}>Copiar</button></p>}
-          {data.ticket_url && <p><a href={data.ticket_url} target="_blank" rel="noreferrer">Baixar boleto em PDF</a></p>}
-          <p>Status: {data.status}</p>
+    <div className="border border-linha rounded-[3px] p-4 bg-white">
+      <h4 className="font-display text-lg">Boleto</h4>
+      {!data ? <button onClick={handleGenerate} className="mt-2 bg-fluxo text-white px-6 py-2 rounded-[3px] font-semibold">Gerar boleto</button> : (
+        <div className="mt-2">
+          {data.barcode && <p className="break-all bg-base border border-linha rounded-[3px] p-2 text-sm">{data.barcode} <button onClick={() => navigator.clipboard.writeText(data.barcode)} className="text-fluxo font-semibold ml-2">Copiar</button></p>}
+          {data.ticket_url && <p className="mt-2"><a href={data.ticket_url} target="_blank" rel="noreferrer" className="text-fluxo font-semibold">Baixar boleto em PDF</a></p>}
+          <p className="text-sm text-poeira mt-2">Status: {data.status}</p>
         </div>
       )}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p role="alert" className="text-sm text-red-700 mt-2">{error}</p>}
     </div>
   );
 }

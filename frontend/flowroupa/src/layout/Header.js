@@ -9,6 +9,19 @@ export default function Header({ onCartClick }) {
   const navigate = useNavigate();
 
   return (
+    <>
+    <div className="bg-tinta text-base overflow-hidden py-2" aria-label="Frete grátis acima de R$ 200. Troca em até 7 dias.">
+      <div className="marquee-track gap-8 text-xs font-body font-semibold">
+        {[0, 1].map((n) => (
+          <span key={n} aria-hidden={n === 1} className="flex gap-8 whitespace-nowrap">
+            <span>Frete grátis acima de R$ 200</span><span className="text-selo">•</span>
+            <span>Troca em até 7 dias</span><span className="text-selo">•</span>
+            <span>Drop FIRE disponível</span><span className="text-selo">•</span>
+            <span>Entrega em São João Evangelista e região</span><span className="text-selo">•</span>
+          </span>
+        ))}
+      </div>
+    </div>
     <header className="sticky top-0 z-40 bg-base border-b border-linha">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
         <Link to="/" className="font-display text-2xl tracking-tight text-tinta">FLOWSTREAT</Link>
@@ -18,6 +31,12 @@ export default function Header({ onCartClick }) {
           <Link to="/catalogo?category=acessorios" className="hover:text-fluxo">Acessórios</Link>
         </nav>
         <div className="flex items-center gap-3">
+          {user?.role === 'admin' && (
+            <>
+              <Link to="/admin/pedidos" className="text-sm font-semibold hidden md:block">Pedidos</Link>
+              <Link to="/admin/produtos" className="text-sm font-semibold hidden md:block">Produtos</Link>
+            </>
+          )}
           {isAuthenticated ? (
             <>
               <Link to="/minha-conta" className="text-sm hidden md:block">{user?.name?.split(' ')[0]}</Link>
@@ -30,5 +49,6 @@ export default function Header({ onCartClick }) {
         </div>
       </div>
     </header>
+    </>
   );
 }

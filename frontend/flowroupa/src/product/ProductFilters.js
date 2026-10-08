@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export default function ProductFilters({ onChange }) {
-  const [f, setF] = useState({ category: '', size: '', color: '', minPrice: '', maxPrice: '' });
+export default function ProductFilters({ onChange, initialCategory = '' }) {
+  const [f, setF] = useState({ category: initialCategory, size: '', color: '', minPrice: '', maxPrice: '' });
   function update(k, v) {
     const n = { ...f, [k]: v };
     setF(n);
@@ -19,9 +19,9 @@ export default function ProductFilters({ onChange }) {
         <option value="tenis">Tênis</option>
         <option value="acessorios">Acessórios</option>
       </select>
-      <div className="flex gap-1">
+      <div className="flex gap-1" role="group" aria-label="Filtrar por tamanho">
         {['P', 'M', 'G', 'GG'].map((s) => (
-          <button key={s} onClick={() => update('size', f.size === s ? '' : s)} className={`w-9 h-9 border rounded-[3px] text-sm font-semibold ${btn(f.size === s)}`}>{s}</button>
+          <button key={s} onClick={() => update('size', f.size === s ? '' : s)} aria-pressed={f.size === s} aria-label={`Tamanho ${s}`} className={`w-11 h-11 border rounded-[3px] text-sm font-semibold ${btn(f.size === s)}`}>{s}</button>
         ))}
       </div>
       <input placeholder="Preço mín" type="number" value={f.minPrice} onChange={(e) => update('minPrice', e.target.value)} className="w-24 border border-linha rounded-[3px] px-2 py-2 text-sm" />

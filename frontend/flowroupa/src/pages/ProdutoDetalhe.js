@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getProductBySlug } from '../components/services/productService';
 import ProductGallery from '../product/ProductGallery';
 import ProductVariantSelector from '../product/ProductVariantSelector';
@@ -22,6 +22,11 @@ export default function ProdutoDetalhe({ onAdd }) {
 
   if (loading) return <p className="p-6">Carregando...</p>;
   if (!product) return <p className="p-6">Produto não encontrado</p>;
+  const crumbs = (
+    <nav aria-label="Navegação" className="max-w-6xl mx-auto px-4 pt-6 text-sm text-poeira">
+      <Link to="/">Início</Link> / <Link to="/catalogo">Coleção</Link> / <span>{product.name}</span>
+    </nav>
+  );
 
   const variant = product.variants.find((v) => v.size === selected.size && v.color === selected.color);
   const canAdd = variant && variant.stock > 0;
@@ -32,11 +37,13 @@ export default function ProdutoDetalhe({ onAdd }) {
   }
 
   return (
+    <>
+    {crumbs}
     <div className="max-w-6xl mx-auto px-4 py-6 grid md:grid-cols-2 gap-8">
       <ProductGallery images={product.images} />
       <div>
         <h1 className="font-display text-3xl">{product.name}</h1>
-        <p className="font-semibold mt-2">R$ {product.price?.toFixed(2)} <span className="font-normal text-poeira text-sm">em até 3x sem juros</span></p>
+        <p className="mt-3"><span className="bg-selo text-tinta font-bold text-lg px-2 py-1 rounded-[2px]">R$ {product.price?.toFixed(2)}</span> <span className="font-normal text-poeira text-sm">em até 3x sem juros</span></p>
         <div className="mt-6">
           <ProductVariantSelector variants={product.variants} selected={selected} onSelect={setSelected} />
         </div>
@@ -48,5 +55,6 @@ export default function ProdutoDetalhe({ onAdd }) {
         <p className="text-xs text-poeira mt-3 text-center">Frete grátis acima de R$ 200 • Troca em 7 dias</p>
       </div>
     </div>
+    </>
   );
 }

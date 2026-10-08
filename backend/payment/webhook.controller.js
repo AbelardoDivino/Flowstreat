@@ -18,7 +18,7 @@ async function webhook(req, res) {
     if (!order) return res.status(200).send('ok');
 
     if (payment.status === 'approved' && order.paymentStatus !== 'paid') {
-      await prisma.order.update({
+      const updated = await prisma.order.update({
         where: { id: orderId },
         data: {
           paymentStatus: 'paid',
@@ -26,6 +26,11 @@ async function webhook(req, res) {
           statusHistory: [...order.statusHistory, { status: 'pagamento_confirmado', date: new Date(), note: `Webhook MP ${payment.status}` }],
         },
       });
+      try {
+        const { sendPaymentConfirmedEmail } = require('../lib/mailer');
+        const user = await prisma.user.findUnique({ where: { id: order.userId } });
+        if (user?.email) sendPaymentConfirmedEmail(user.email, updated).catch(() => {});
+      } catch {}
     }
     res.status(200).send('ok');
   } catch (e) {
