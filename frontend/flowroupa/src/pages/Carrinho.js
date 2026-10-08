@@ -12,7 +12,7 @@ export default function Carrinho() {
       <h1 className="font-display text-2xl mb-4">Sacola</h1>
       {items.map((item) => <CartItem key={`${item.productId}-${item.size}-${item.color}`} item={item} onUpdate={(q) => updateQuantity(item.productId, item.size, item.color, q)} onRemove={() => removeItem(item.productId, item.size, item.color)} />)}
       <CartSummary />
-      <button onClick={() => navigate('/checkout')} className="w-full mt-6 bg-tinta text-base py-3 rounded-[3px] font-semibold">Finalizar compra</button>
+      <button onClick={() => navigate('/checkout')} className="btn btn-dark btn-block mt-6">Finalizar compra</button>
       <Link to="/catalogo" className="block text-center mt-3 text-sm text-poeira">Continuar comprando</Link>
     </div>
   );

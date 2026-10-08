@@ -40,8 +40,8 @@ export default function CartDrawer({ open, onClose }) {
               <CartItem key={`${item.productId}-${item.size}-${item.color}`} item={item} onUpdate={(q) => updateQuantity(item.productId, item.size, item.color, q)} onRemove={() => removeItem(item.productId, item.size, item.color)} />
             ))}
             <CartSummary />
-            <button onClick={() => { onClose(); navigate('/checkout'); }} className="w-full mt-4 bg-tinta text-base py-3 rounded-[3px] font-semibold">Finalizar compra</button>
-            <button onClick={onClose} className="w-full mt-2 border border-linha py-2 rounded-[3px] text-sm">Continuar comprando</button>
+            <button onClick={() => { onClose(); navigate('/checkout'); }} className="btn btn-dark btn-block mt-4">Finalizar compra</button>
+            <button onClick={onClose} className="btn btn-light btn-block mt-2">Continuar comprando</button>
           </>
         )}
       </div>

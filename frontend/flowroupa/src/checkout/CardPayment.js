@@ -1,23 +1,27 @@
 import { useState } from 'react';
 import { payCard } from '../components/services/paymentService';
 
-const inputCls = 'border border-linha rounded-[3px] px-3 py-2 text-sm bg-white text-tinta w-full';
-const labelCls = 'text-sm text-poeira';
+const inputCls = 'input';
+const labelCls = 'label';
 
 export default function CardPayment({ orderId }) {
   const [form, setForm] = useState({ token: '', installments: 1, paymentMethodId: 'visa', issuerId: '' });
   const [msg, setMsg] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handlePay(e) {
     e.preventDefault();
+    if (loading) return;
     setError(''); setMsg('');
+    setLoading(true);
     try {
       const res = await payCard(orderId, form);
       if (res.status === 'approved') setMsg('Pagamento aprovado!');
       else if (res.status === 'rejected') setMsg('Pagamento recusado: ' + (res.detail || ''));
       else setMsg('Status: ' + res.status);
     } catch (e) { setError(e.message); }
+    finally { setLoading(false); }
   }
 
   return (
@@ -37,7 +41,7 @@ export default function CardPayment({ orderId }) {
           <label htmlFor="card-installments" className={labelCls}>Parcelas</label>
           <input id="card-installments" type="number" min="1" max="12" value={form.installments} onChange={(e) => setForm({ ...form, installments: e.target.value })} className={inputCls} />
         </div>
-        <button type="submit" className="bg-fluxo text-white py-3 rounded-[3px] font-semibold">Pagar com cartão</button>
+        <button type="submit" disabled={loading} className="btn btn-primary btn-block">{loading ? 'Processando...' : 'Pagar com cartão'}</button>
       </form>
       {msg && <p role="status" className="text-sm text-green-700 mt-2">{msg}</p>}
       {error && <p role="alert" className="text-sm text-red-700 mt-2">{error}</p>}

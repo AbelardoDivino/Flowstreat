@@ -37,4 +37,13 @@ async function boleto(req, res, next) {
   } catch (e) { next(e); }
 }
 
-module.exports = { pix, card, boleto };
+async function status(req, res, next) {
+  try {
+    const mpId = req.params.mpId;
+    const result = await paymentService.getPaymentStatus(mpId);
+    if (!result) return res.status(404).json({ error: 'Pagamento não encontrado' });
+    res.json({ id: result.id, status: result.status });
+  } catch (e) { next(e); }
+}
+
+module.exports = { pix, card, boleto, status };

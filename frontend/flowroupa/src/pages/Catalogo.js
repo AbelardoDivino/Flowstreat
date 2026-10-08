@@ -46,9 +46,9 @@ export default function Catalogo() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Buscar peça (ex: nike, bomber, slide)"
-          className="flex-1 border border-linha rounded-[3px] px-4 py-3 text-base bg-white text-tinta placeholder:text-poeira"
+          className="input flex-1"
         />
-        <button type="submit" className="bg-tinta text-base px-6 rounded-[3px] font-semibold">Buscar</button>
+        <button type="submit" className="btn btn-dark">Buscar</button>
       </form>
       <ProductFilters key={category} initialCategory={category} onChange={(f) => load(category ? { ...f, category } : f)} />
       <p className="text-sm text-poeira mb-4">{products.length} peças</p>

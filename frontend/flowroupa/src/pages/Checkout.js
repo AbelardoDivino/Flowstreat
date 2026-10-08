@@ -56,7 +56,7 @@ export default function Checkout() {
           <p className="text-sm text-poeira mb-2">Pagamento</p>
           <PaymentMethodSelector value={paymentMethod} onChange={setPaymentMethod} />
         </div>
-        <button onClick={handleConfirm} className="w-full mt-6 bg-fluxo text-white py-3 rounded-[3px] font-semibold">Confirmar pedido</button>
+        <button onClick={handleConfirm} className="btn btn-primary btn-block mt-6">Confirmar pedido</button>
         {msg && <p className="mt-3 text-sm font-semibold">{msg}</p>}
       </div>
     );

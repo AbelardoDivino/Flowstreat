@@ -2,26 +2,120 @@
 @tailwind components;
 @tailwind utilities;
 
+/* FlowStreat — sistema visual varejo-editorial.
+   Papel quente, tinta quente, Anton display + Archivo texto.
+   Raio 3px em tudo. Sombra nunca decora: linha fina separa. */
+
 :root {
-  --color-base: #F7F6F2;
-  --color-tinta: #15192A;
+  --color-base: #F5F3EC;
+  --color-tinta: #16130D;
   --color-fluxo: #2A3EF5;
   --color-selo: #E8A716;
-  --color-linha: #C9C6BC;
-  --color-poeira: #5B6270;
+  --color-linha: #D8D3C4;
+  --color-poeira: #5C5A54;
   --font-display: 'Anton', sans-serif;
   --font-body: 'Archivo', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--color-base);
   color: var(--color-tinta);
   font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  line-height: 1;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+
+p {
+  line-height: 1.5;
+}
+
+@layer components {
+  /* ——— Botões: caixa alta, tracking aberto, pressão física ——— */
+  .btn {
+    @apply inline-flex items-center justify-center font-body font-bold uppercase rounded-[3px] transition active:scale-[0.98] disabled:opacity-50;
+    letter-spacing: 0.08em;
+    font-size: 0.8125rem;
+  }
+  .btn-primary {
+    @apply btn bg-fluxo text-white px-6 py-3;
+  }
+  .btn-primary:hover {
+    filter: brightness(1.12);
+  }
+  .btn-dark {
+    @apply btn bg-tinta text-base px-6 py-3;
+  }
+  .btn-dark:hover {
+    background: #000;
+  }
+  .btn-light {
+    @apply btn bg-white text-tinta border border-tinta px-6 py-3;
+  }
+  .btn-light:hover {
+    @apply bg-tinta text-base;
+  }
+  .btn-block {
+    @apply w-full py-3;
+  }
+
+  /* ——— Campos: altos, texto tinta, placeholder poeira ——— */
+  .input {
+    @apply border border-linha rounded-[3px] bg-white text-tinta placeholder:text-poeira w-full font-body;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
+  .input:hover {
+    border-color: var(--color-poeira);
+  }
+  .label {
+    @apply text-sm font-bold;
+  }
+
+  /* ——— Cartão de produto: papel branco, linha, zoom ——— */
+  .card {
+    @apply block bg-white border border-linha rounded-[3px] overflow-hidden transition;
+  }
+  .card:hover {
+    border-color: var(--color-tinta);
+  }
+  .card img {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card:hover img {
+    transform: scale(1.06);
+  }
+
+  /* ——— Etiqueta de preço selo ——— */
+  .tag-preco {
+    @apply bg-selo text-tinta font-bold px-1.5 py-0.5 rounded-[2px];
+  }
+
+  /* ——— Selo torto de campanha ——— */
+  .tag-selo {
+    @apply inline-block bg-selo text-tinta font-bold px-2 py-1 rounded-[2px];
+    font-size: 0.75rem;
+    transform: rotate(-2deg);
+  }
+
+  /* ——— Links de navegação com underline ——— */
+  .nav-link {
+    text-underline-offset: 4px;
+  }
+  .nav-link:hover {
+    color: var(--color-fluxo);
+    text-decoration: underline;
+  }
 }
 
 /* foco visível no teclado — fluxo da identidade */
@@ -34,14 +128,6 @@ h1, h2, h3 {
 ::selection {
   background: var(--color-tinta);
   color: var(--color-base);
-}
-
-/* respeita quem prefere sem movimento */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
 }
 
 /* palavra gigante vazada — motivo da marca */
@@ -68,4 +154,27 @@ h1, h2, h3 {
     var(--color-linha) 0 2px,
     var(--color-base) 2px 10px
   );
+}
+
+/* barra de rolagem discreta na paleta */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-linha);
+  border-radius: 3px;
+}
+
+/* respeita quem prefere sem movimento */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

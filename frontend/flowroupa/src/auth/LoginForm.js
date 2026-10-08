@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import useAuth from '../components/hooks/useAuth';
 
-const inputCls = 'border border-linha rounded-[3px] px-4 py-3 text-base bg-white text-tinta w-full placeholder:text-poeira';
-const labelCls = 'text-sm font-semibold';
+const inputCls = 'input';
+const labelCls = 'label';
 
 function EyeIcon({ off }) {
   if (off) {
@@ -71,7 +71,7 @@ export default function LoginForm() {
           </div>
         </div>
         {error && <p role="alert" className="text-sm text-red-700 border border-red-300 bg-red-50 rounded-[3px] px-3 py-2">{error}</p>}
-        <button type="submit" disabled={loading} className="bg-tinta text-base py-3 rounded-[3px] font-semibold disabled:opacity-50">{loading ? 'Entrando...' : 'Entrar'}</button>
+        <button type="submit" disabled={loading} className="btn btn-dark btn-block">{loading ? 'Entrando...' : 'Entrar'}</button>
         <div className="flex justify-center">
           <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => setError('Erro no login com Google')} />
         </div>

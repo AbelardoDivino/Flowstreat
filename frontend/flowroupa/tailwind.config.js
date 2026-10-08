@@ -4,12 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        base: '#F7F6F2',
-        tinta: '#15192A',
+        base: '#F5F3EC',
+        tinta: '#16130D',
         fluxo: '#2A3EF5',
         selo: '#E8A716',
-        linha: '#C9C6BC',
-        poeira: '#5B6270',
+        linha: '#D8D3C4',
+        poeira: '#5C5A54',
       },
       fontFamily: {
         display: ['Anton', 'sans-serif'],

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../components/hooks/useAuth';
 
-const inputCls = 'border border-linha rounded-[3px] px-4 py-3 text-base bg-white text-tinta w-full placeholder:text-poeira';
-const labelCls = 'text-sm font-semibold';
+const inputCls = 'input';
+const labelCls = 'label';
 
 function EyeIcon({ off }) {
   if (off) {
@@ -66,7 +66,7 @@ export default function RegisterForm() {
           </div>
         </div>
         {error && <p role="alert" className="text-sm text-red-700 border border-red-300 bg-red-50 rounded-[3px] px-3 py-2">{error}</p>}
-        <button type="submit" disabled={loading} className="bg-fluxo text-white py-3 rounded-[3px] font-semibold disabled:opacity-50">{loading ? 'Cadastrando...' : 'Cadastrar'}</button>
+        <button type="submit" disabled={loading} className="btn btn-primary btn-block">{loading ? 'Cadastrando...' : 'Cadastrar'}</button>
       </form>
       <p className="text-sm text-center mt-4 text-poeira">Já tem conta? <Link to="/login" className="text-fluxo font-semibold">Entrar</Link></p>
     </div>

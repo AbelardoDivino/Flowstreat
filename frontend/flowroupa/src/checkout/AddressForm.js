@@ -1,8 +1,8 @@
 import { useState } from 'react';
 const API = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
-const inputCls = 'border border-linha rounded-[3px] px-3 py-2 text-sm bg-white text-tinta w-full';
-const labelCls = 'text-sm text-poeira';
+const inputCls = 'input';
+const labelCls = 'label';
 
 function Field({ id, label, ...props }) {
   return (
@@ -35,7 +35,7 @@ export default function AddressForm({ onCreated }) {
       <Field id="addr-state" label="Estado" value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} required />
       <Field id="addr-zip" label="CEP" value={form.zipCode} onChange={(e) => setForm({ ...form, zipCode: e.target.value })} required autoComplete="postal-code" inputMode="numeric" />
       {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
-      <button type="submit" className="bg-tinta text-base py-2 rounded-[3px] font-semibold">Salvar endereço</button>
+      <button type="submit" className="btn btn-dark btn-block">Salvar endereço</button>
     </form>
   );
 }

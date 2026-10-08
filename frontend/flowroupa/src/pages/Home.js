@@ -26,7 +26,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
         <div className="max-w-6xl mx-auto px-4 relative">
           <div className="min-h-[62vh] md:min-h-[72vh] flex flex-col justify-end pb-10 md:pb-14 max-w-2xl">
-            <p className="inline-block self-start bg-selo text-tinta text-xs font-bold px-2 py-1 rounded-[2px] -rotate-2">Drop FIRE disponível</p>
+            <p className="tag-selo self-start">Drop FIRE disponível</p>
             <h1 className="font-display text-5xl md:text-7xl leading-none mt-4">
               Roupa de rua<br />do jeito que<br />a gente vive.
             </h1>

@@ -14,6 +14,7 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string().default(''),
   MERCADOPAGO_ACCESS_TOKEN: z.string().default(''),
   MERCADOPAGO_PUBLIC_KEY: z.string().default(''),
+  MERCADOPAGO_WEBHOOK_SECRET: z.string().default(''),
   CLOUDINARY_CLOUD_NAME: z.string().default(''),
   CLOUDINARY_API_KEY: z.string().default(''),
   CLOUDINARY_API_SECRET: z.string().default(''),
